@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock-Timer</title>
+</head>
+<style>
+    * {
+        font-family: "Orbitron", sans-serif;
+    }
+
+    .main {
+        box-shadow: 0 0 50px gray;
+        padding: 50px;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+    }
+
+    .mainClock_box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section {
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box h1 {
+        font-size: 2.5rem;
+    }
+
+    .dot {
+        font-size: 2.5rem;
+    }
+
+    .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 100px;
+    }
+
+    span {
+        margin: 0px 10px;
+        color: gray;
+    }
+
+    .heading {
+        text-align: center;
+    }
+
+    .day {
+        font-weight: 700;
+        color: white;
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <section>
+        <div class="main">
+
+            <h1 class="heading">Current-Time</h1>
+
+            <div class="mainClock_box">
+
+                <div class="box hr">
+                    <h1 id="hr">00</h1>
+                </div>
+
+                <span class="dot">:</span>
+
+                <div class="box min">
+                    <h1 id="min">00</h1>
+                </div>
+
+                <span class="dot">:</span>
+
+                <div class="box sec">
+                    <h1 id="sec">00</h1>
+                </div>
+
+                <span class="ampm">AM</span>
+
+            </div>
+
+            <div class="day">
+                <span class="mon">Mon</span>
+                <span class="tue">Tue</span>
+                <span class="wed">Wed</span>
+                <span class="thurs">Thu</span>
+                <span class="fri">Fri</span>
+                <span class="sat">Sat</span>
+                <span class="sun">Sun</span>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        let hr = document.querySelector('#hr');
+        let min = document.querySelector('#min');
+        let sec = document.querySelector('#sec');
+        let ampm = document.querySelector('.ampm');
+
+        setInterval(function () {
+
+            //To set Current-Time
+            let current_date = new Date();
+            hr.innerText = current_date.getHours();
+            min.innerText = current_date.getMinutes();
+            sec.innerText = current_date.getSeconds();
+
+            //To set Current-Day
+            switch (current_date.getDay()) {
+                case 0:
+                    document.querySelector('.sun').classList.add('day');
+                    break;
+                case 1:
+                    document.querySelector('.mon').classList.add('day');
+                    break;
+                case 2:
+                    document.querySelector('.tue').classList.add('day');
+                    break;
+                case 3:
+                    document.querySelector('.wed').classList.add('day');
+                    break;
+                case 4:
+                    document.querySelector('.thurs').classList.add('day');
+                    break;
+                case 5:
+                    document.querySelector('.fri').classList.add('day');
+                    break;
+                case 6:
+                    document.querySelector('.sat').classList.add('day');
+            }
+
+            //to set AM and PM
+            if (hr.innerText < 12) {
+                ampm.innerText = 'AM'
+            } else {
+                ampm.innerText = 'PM'
+            }
+
+            //DarkMode after 6pm
+            function applyDarkMode() {
+                let current_hr = current_date.getHours();
+                if (current_hr >= 18 && current_hr <= 23) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }
+
+            applyDarkMode();
+
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
